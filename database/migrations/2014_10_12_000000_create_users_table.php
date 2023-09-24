@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('middleName');
             $table->string('lastName');
             $table->date('birthday');
-            $table->string('studentNo');
-            $table->string('teacherNo');
+            $table->string('accountStatus');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
