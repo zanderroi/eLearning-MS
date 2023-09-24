@@ -31,18 +31,18 @@
                   </svg>
               </button>
               <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
-                <ul class="flex flex-col font-medium p-4 md:p-0 mt-4  md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <ul class="flex flex-col font-medium p-4 md:p-0 mt-4  md:flex-row md:space-x-8 md:mt-0 md:border-0  ">
                   <li>
                     <a href="{{ route('welcome')}}" class="block py-2 pl-3 pr-4 text-white     {{ Request::is('/') ? ' border-b-2 border-yellow-300' : '' }}" aria-current="page">Home</a>
                   </li>
                   <li>
-                    <a href="#" class="block py-2 pl-3 pr-4 text-gray-100 rounded  md:hover:text-yellow-300  dark:text-white  dark:hover:bg-gray-700 {{ Request::is('/announcement') ? ' border-b-2 border-yellow-300' : '' }}">Announcements</a>
+                    <a href="#" class="block py-2 pl-3 pr-4 text-gray-100 rounded  md:hover:text-yellow-300   {{ Request::is('/announcement') ? ' border-b-2 border-yellow-300' : '' }}">Announcements</a>
                   </li>
                   <li>
-                    <a href="#" class="block py-2 pl-3 pr-4 text-gray-100 rounded  md:hover:text-yellow-300  dark:text-white  dark:hover:bg-gray-700 {{ Request::is('/aboutus') ? ' border-b-2 border-yellow-300' : '' }}">About Us</a>
+                    <a href="#" class="block py-2 pl-3 pr-4 text-gray-100 rounded  md:hover:text-yellow-300   {{ Request::is('/aboutus') ? ' border-b-2 border-yellow-300' : '' }}">About Us</a>
                   </li>
                   <li>
-                    <a href="#" class="block py-2 pl-3 pr-4 text-gray-100 rounded  md:hover:text-yellow-300  dark:text-white  dark:hover:text-white {{ Request::is('/enrollnow') ? ' border-b-2 border-yellow-300' : '' }}">Enroll Now!</a>
+                    <a href="#" class="block py-2 pl-3 pr-4 text-gray-100 rounded  md:hover:text-yellow-300   {{ Request::is('/enrollnow') ? ' border-b-2 border-yellow-300' : '' }}">Enroll Now!</a>
                   </li>
                   @if (!in_array(request()->path(), ['teacher-login', 'student-login']))
                   <li>
@@ -50,12 +50,12 @@
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                      </svg></button>
                     <!-- Dropdown menu -->
-                    <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                    <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 ">
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                           <li>
-                            <a href="{{ route('teacherLogin') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"> <i class="fa-solid fa-chalkboard-user px-2 "></i> Teacher</a>
+                            <a href="{{ route('teacherLogin') }}" class="block px-4 py-2 hover:bg-gray-100 "> <i class="fa-solid fa-chalkboard-user px-2 "></i> Teacher</a>
                           </li>
-                          <li class="flex hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                          <li class="flex hover:bg-gray-100 ">
                             <img src="{{ asset('images/student.png')}}" class="ml-6 mt-2 w-5 h-5">
                             <a href="{{ route('studentLogin')}}" class="block px-2 py-2 ">Student</a>
                           </li>
