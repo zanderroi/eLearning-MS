@@ -31,11 +31,11 @@
                         <input type="password" id="password" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                     </div>
     
-                    <input type="submit" value="Log In" class="bg-yellow-500 text-white font-bold text-lg hover:bg-yellow-600 p-2 mt-8">
+                    <input type="submit" value="Log In" class="bg-blue-500 text-white font-bold text-lg hover:bg-blue-600 p-2 mt-8">
                 </form>
                 <div class="text-center pt-12 pb-12">
                     <p>Are you a teacher? <a href="{{route('teacherLogin')}}" class="underline font-semibold">Login here</a></p>
-                    <p>Don't have an account? <a href="register.html" class="underline font-semibold">Register here.</a></p>
+                    <p>Don't have an account? <a href="{{route('studentRegister')}}" class="underline font-semibold">Register here.</a></p>
                 </div>
             </div>
 

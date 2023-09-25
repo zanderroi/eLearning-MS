@@ -25,3 +25,11 @@ Route::get('/teacher-login', function () {
 Route::get('/student-login', function () {
     return view('auth/studentLogin');
 })->name('studentLogin');
+
+Route::get('/student-register', function () {
+    return view('auth/studentRegister');
+})->name('studentRegister');
+
+Route::get('/teacher-register', function () {
+    return view('auth/teacherRegister');
+})->name('teacherRegister');

@@ -35,7 +35,7 @@
                 </form>
                 <div class="text-center pt-12 pb-12">
                     <p>Are you a student? <a href="{{route('studentLogin')}}" class="underline font-semibold">Login here</a></p>
-                    <p>Don't have an account? <a href="register.html" class="underline font-semibold">Register here.</a></p>
+                    <p>Don't have an account? <a href="{{route('teacherRegister')}}" class="underline font-semibold">Register here.</a></p>
                 </div>
             </div>
 
