@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->string('id_number');
+            $table->text('subject');
+            $table->string('department');
+            $table->enum('program', ['kinder', 'elementary', 'high_school']);
+            $table->integer('advisory_year');
+            $table->string('advisory_section');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

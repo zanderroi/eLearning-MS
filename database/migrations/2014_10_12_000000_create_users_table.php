@@ -16,12 +16,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('middleName')->nullable();
             $table->string('lastName');
+            $table->enum('sex', ['male', 'female']);
             $table->date('birthday');
             $table->string('address');
-            $table->string('accountStatus');
+            $table->string('accountStatus')->nullable();
             $table->string('email')->unique();
             $table->unsignedBigInteger('contact_number');
-            $table->enum('user_type', ['student', 'teacher', 'admin'])->default('student');
+            $table->enum('user_type', ['student', 'teacher', 'admin'])->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('contactperson');

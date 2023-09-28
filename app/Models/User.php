@@ -22,13 +22,11 @@ class User extends Authenticatable
         'name', 
         'middleName', 
         'lastName', 
+        'sex',
         'birthday', 
-        'address', 
-        'accountStatus',
+        'address',
         'email', 
         'contact_number', 
-        'user_type', 
-        'email_verified_at', 
         'password',
         'contactperson', 
         'contactperson_number',
@@ -54,7 +52,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function students()
+    public function student()
     {
         return $this->hasMany(Student::class);
     }
@@ -62,6 +60,18 @@ class User extends Authenticatable
     public function teacher()
     {
         return $this->hasMany(Teacher::class);
+    }
+
+    //Check if the user is a student
+    public function isStudent()
+    {
+        return $this->user_type === 'student';
+    }
+
+    //Chec if the user is a teacher
+    public function isTeacher()
+    {
+        return $this->user_type === 'teacher';
     }
 
 }

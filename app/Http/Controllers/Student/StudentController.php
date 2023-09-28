@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
@@ -17,31 +18,47 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the form data
-        $validatedData = $request->validate([
+        // Validate the registration data, including student-specific fields
+        $this->validate($request, [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
-            'year_level' => 'required|string',
-            'course' => 'required|string',
-            'section' => 'required|string',
-            'student_status' => 'required|string',
+            'middleName' => 'nullable|string|max:255',
+            'lastName' => 'required|string|max:255',
+            'sex' => 'required|in:male,female',
+            'birthday' => 'required|date',
+            'address' => 'required|string',
+            'email' => 'required|string|email|max:255|unique:students',
+            'contact_number' => 'required|numeric',
+            'password' => 'required|string|min:8|confirmed',
+            'contactperson' => 'required|string|max:255',
+            'contactperson_number' => 'required|numeric',
+            'grade' => 'required|string|max:255', // Add validation for grade
+            'section' => 'required|string|max:255', // Add validation for section
+            'lrn' => 'required|string|max:255', // Add validation for LRN
         ]);
 
-        // Create a new user
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-            'user_type' => 'student',
+
+         // Create a new user record
+         $user = User::create([
+            'name' => $request->name,
+            'middleName' => $request->middleName,
+            'lastName' => $request->lastName,
+            'sex' => $request->sex,
+            'birthday' => $request->birthday,
+            'address' => $request->address,
+            'email' => $request->email,
+            'contact_number' => $request->contact_number,
+            'user_type' => 'student', // Set the user_type to 'student'
+            'password' => Hash::make($request->password),
+            'contactperson' => $request->contactperson,
+            'contactperson_number' => $request->contactperson_number,
         ]);
 
         // Create a student record associated with the user
         $student = new Student([
-            'year_level' => $validatedData['year_level'],
-            'course' => $validatedData['course'],
-            'section' => $validatedData['section'],
-            'student_status' => $validatedData['student_status'],
+            'user_id' => $user->id,
+            'grade' => $request->grade,
+            'section' => $request->section,
+            'lrn' => $request->lrn,
         ]);
 
         $user->student()->save($student);
@@ -49,4 +66,32 @@ class StudentController extends Controller
         // Redirect to a success page or do any additional tasks
         return redirect()->route('students.register')->with('success', 'Student registration successful!');
     }
+
+
+    //STUDENT LOGIN
+
+    public function showLoginForm()
+    {
+        return view('auth.students.login');
+    }
+
+    public function login(Request $request)
+    {
+        // Validate the login data
+        $this->validate($request, [
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+
+        // Attempt to authenticate the student
+        if (Auth::guard('student')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            // Authentication successful, redirect to the student's dashboard or another page
+            return redirect()->route('student.dashboard')->with('success', 'Login successful!');
+        }
+
+        // Authentication failed, redirect back with errors
+        return back()->withErrors(['email' => 'Invalid login credentials']);
+    }
+
+
 }

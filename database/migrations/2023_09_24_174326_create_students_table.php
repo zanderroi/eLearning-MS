@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('year_level');
-            $table->string('course');
+            $table->string('grade');
             $table->string('section');
-            $table->string('student_status');
+            $table->unsignedBigInteger('lrn');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
