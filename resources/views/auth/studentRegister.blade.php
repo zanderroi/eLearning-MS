@@ -95,7 +95,7 @@
                     <div class="step-indicator-item">3</div>
                 </div>
 
-                <form method="POST"  action="{{ route('student.register.submit') }}" id="wizard-form" enctype="multipart/form-data">
+                <form method="POST"  action="/student/register" id="wizard-form" enctype="multipart/form-data">
                 @csrf
                 <!-- Step 1: Personal Information -->
                 <div class="step" id="step-1">
@@ -152,13 +152,13 @@
                         @enderror
                         <div class="flex mb-2">
                             <div class="w-1/2 mr-1">
-                                <label class="block text-sm font-medium text-gray-700" for="phone_number">Phone
+                                <label class="block text-sm font-medium text-gray-700" for="contact_number">Phone
                                     Number</label>
-                                <input name="phone_number"
-                                    class="@error('phone_number') is-invalid @enderror  border rounded w-full py-2 px-3 text-grey-darker"
-                                    id="phone_number" type="number" inputmode="numeric" pattern="[0-9]*"
-                                    placeholder="639" required autocomplete="phone_number">
-                                @error('phone_number')
+                                <input name="contact_number"
+                                    class="@error('contact_number') is-invalid @enderror  border rounded w-full py-2 px-3 text-grey-darker"
+                                    id="contact_number" type="number" inputmode="numeric" pattern="[0-9]*"
+                                    placeholder="639" required autocomplete="contact_number">
+                                @error('contact_number')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -207,7 +207,7 @@
                             </div>
                         </div>
                         <div class="mt-4 flex justify-between">
-                            <button type="button" onclick="nextStep(1)"
+                            <button type="button" id="next-button" onclick="nextStep(1)"
                                 class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:border-indigo-700 focus:ring-indigo-500 active:bg-indigo-700 disabled:opacity-25 transition ease-in-out duration-150">
                                 Next
                             </button>
@@ -256,11 +256,11 @@
                         </div>
 
                         <div class="mt-4 flex justify-between">
-                            <button type="button" onclick="prevStep(2)"
+                            <button type="button" id="prev-button" onclick="prevStep(2)"
                                 class="inline-flex items-center px-4 py-2 bg-gray-300 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-200 focus:outline-none focus:border-gray-300 focus:ring-gray-300 active:bg-gray-200 disabled:opacity-25 transition ease-in-out duration-150">
                                 Previous
                             </button>
-                            <button type="button" onclick="nextStep(2)"
+                            <button type="button" id="next-button" onclick="nextStep(2)"
                                 class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:border-indigo-700 focus:ring-indigo-500 active:bg-indigo-700 disabled:opacity-25 transition ease-in-out duration-150">
                                 Next
                             </button>
@@ -321,7 +321,7 @@
                 
                     
                         <div class="mt-4 flex justify-between">
-                            <button type="button" onclick="prevStep(3)"
+                            <button type="button" id="prev-button" onclick="prevStep(3)"
                                 class="inline-flex items-center px-4 py-2 bg-gray-300 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-200 focus:outline-none focus:border-gray-300 focus:ring-gray-300 active:bg-gray-200 disabled:opacity-25 transition ease-in-out duration-150">
                                 Previous
                             </button>
@@ -329,6 +329,7 @@
                                 class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:border-indigo-700 focus:ring-indigo-500 active:bg-indigo-700 disabled:opacity-25 transition ease-in-out duration-150">
                                 Sign Up
                             </button>
+                        </div>
                         </form>
 
                         </div>

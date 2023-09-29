@@ -57,7 +57,7 @@
                           </li>
                           <li class="flex hover:bg-gray-100 ">
                             <img src="{{ asset('images/student.png')}}" class="ml-6 mt-2 w-5 h-5">
-                            <a href="{{ route('student.login.view')}}" class="block px-2 py-2 ">Student</a>
+                            <a href="/student/login" class="block px-2 py-2 ">Student</a>
                           </li>
                           @endif
                         </ul>

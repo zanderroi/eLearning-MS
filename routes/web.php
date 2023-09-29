@@ -26,12 +26,12 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Student Registration Routes
-Route::get('/student/register', [StudentController::class, 'create'])->name('student.register.form');
-Route::post('/student/register', [StudentController::class, 'store'])->name('student.register.submit');
+Route::get('/student/registration', [StudentController::class, 'create']);
+Route::post('/student/registered', [StudentController::class, 'store']);
 
 // Student Login Routes
-Route::get('/student/login', [StudentController::class, 'showLoginForm'])->name('student.login.view');
-Route::post('/student/login', [StudentController::class, 'login'])->name('student.login.submit');
+Route::get('/student/login', [StudentController::class, 'showLoginForm']);
+Route::post('/student/login', [StudentController::class, 'login']);
 
 
 

@@ -24,7 +24,7 @@
           <li>
             <a href="#" class="block py-2 pl-3 pr-4 text-gray-100 rounded  md:hover:text-yellow-300  dark:text-white  dark:hover:text-white {{ Request::is('/enrollnow') ? ' border-b-2 border-yellow-300' : '' }}">Enroll Now!</a>
           </li>
-          @if (!in_array(request()->path(), ['teacher.login.view', 'student.login.view']))
+          @if (!in_array(request()->path(), ['/teacher/login', '/student/login']))
           <li>
             <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="font-semibold flex items-center justify-between w-full py-2 pl-3 pr-4 text-gray-100 hover:text-yellow-300 md:w-auto ">Login <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
@@ -37,7 +37,7 @@
                   </li>
                   <li class="flex hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                     <img src="{{ asset('images/student.png')}}" class="ml-6 mt-2 w-5 h-5">
-                    <a href="{{ route('student.login.view')}}" class="block px-2 py-2 ">Student</a>
+                    <a href="/student/login" class="block px-2 py-2 ">Student</a>
                   </li>
                   @endif
                 </ul>

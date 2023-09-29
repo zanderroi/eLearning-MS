@@ -13,7 +13,7 @@ class StudentController extends Controller
 {
     public function create()
     {
-        return view('auth/studentRegister');
+        return view('auth.learnersRegistration');
     }
 
     public function store(Request $request)
@@ -26,7 +26,7 @@ class StudentController extends Controller
             'sex' => 'required|in:male,female',
             'birthday' => 'required|date',
             'address' => 'required|string',
-            'email' => 'required|string|email|max:255|unique:students',
+            'email' => 'required|string|email|max:255|unique:users',
             'contact_number' => 'required|numeric',
             'password' => 'required|string|min:8|confirmed',
             'contactperson' => 'required|string|max:255',
@@ -64,7 +64,7 @@ class StudentController extends Controller
         $user->student()->save($student);
 
         // Redirect to a success page or do any additional tasks
-        return redirect()->route('students.register.form')->with('success', 'Student registration successful!');
+        return view('auth/studentLogin')->with('success', 'Student registration successful!');
     }
 
 
