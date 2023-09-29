@@ -95,7 +95,7 @@
                     <div class="step-indicator-item">3</div>
                 </div>
 
-                {{-- <form method="POST"  action="{{ route('auth.register') }}" id="wizard-form" enctype="multipart/form-data"> --}}
+                <form method="POST"  action="{{ route('student.register.submit') }}" id="wizard-form" enctype="multipart/form-data">
                 @csrf
                 <!-- Step 1: Personal Information -->
                 <div class="step" id="step-1">
@@ -271,9 +271,9 @@
                 <div class="step hidden" id="step-3">
                     <h3 class="text-lg font-semibold mb-2 text-blue-600"> Student Information </h1>
                         <div class="flex mb-2">
-                            <div class="row mb-3">
-                                <label for="user_type" class="block text-sm font-medium text-gray-700">Grade</label>
-                                <select id="user_type" name="user_type" class=" border rounded w-full py-2 px-3 text-grey-darker">
+                            <div class="w-1/2 mr-1">
+                                <label for="grade" class="block text-sm font-medium text-gray-700">Grade</label>
+                                <select id="grade" name="grade" class=" border rounded w-full py-2 px-3 text-grey-darker">
                                     <option value=""></option>
                                     <option value="Kinder">Kinder</option>
                                     <option value="Grade 1">Grade 1</option>
@@ -288,120 +288,38 @@
                                     <option value="Grade 10">Grade 10</option>
                                 </select>
                             </div>
-                            <div class="w-1/2 ml-1">
-                                <label class="block text-grey-darker text-sm font-bold mb-2" for="govtid_image">Upload
-                                    Government ID Image</label>
-                                <input name="govtid_image" id="govtid_image" type="file"
-                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 form-control-file @error('govtid_image') is-invalid @enderror"
-                                    name="govtid_image" required>
-                                <p class="text-gray-500 text-xs mt-1">Maximum size is 2MB</p>
-                                @error('govtid_image')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <label class="block text-grey-darker text-sm font-bold mb-2" for="driverslicense">Drivers
-                                License</label>
-                            <input
-                                name="driverslicense"class="appearance-none border rounded w-full py-2 px-3 text-grey-darker @error('driverslicense') is-invalid @enderror"
-                                value="{{ old('driverslicense') }}" id="driverslicense" type="text" required>
-                            @error('driverslicense')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="flex mb-4">
+
                             <div class="w-1/2 mr-1">
-                                <label class="block text-grey-darker text-sm font-bold mb-2"
-                                    for="driverslicense_image">Drivers License Front Photo</label>
-                                <input name="driverslicense_image" id="driverslicense_image" type="file"
-                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 form-control-file @error('driverslicense_image') is-invalid @enderror"
-                                    name="driverslicense_image" required>
-                                <p class="text-gray-500 text-xs mt-1">Maximum size is 2MB</p>
-                                @error('driverslicense_image')
+                                <label class="block text-sm font-medium text-gray-700"
+                                    for="section">Section</label>
+                                <input name="section"
+                                    class="@error('section') is-invalid @enderror  border rounded w-full py-2 px-3 text-grey-darker"
+                                    id="section" value="{{ old('section') }}" type="text" required
+                                    autocomplete="section" autofocus>
+                                @error('section')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                            <div class="w-1/2 ml-1">
-                                <label class="block text-grey-darker text-sm font-bold mb-2"
-                                    for="driverslicense2_image">Drivers License Back Photo</label>
-                                <input name="driverslicense2_image" id="driverslicense2_image" type="file"
-                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 form-control-file @error('driverslicense2_image') is-invalid @enderror"
-                                    name="driverslicense2_image" required>
-                                <p class="text-gray-500 text-xs mt-1">Maximum size is 2MB</p>
-                                @error('driverslicense2_image')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+               
                         </div>
-                        <div class="mb-2">
-                            <label class="block text-grey-darker text-sm font-bold mb-2" for="selfie_image">Upload a
-                                clear selfie photo</label>
-                            <input name="selfie_image" id="selfie_image" type="file"
-                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 form-control-file @error('selfie_image') is-invalid @enderror"
-                                name="selfie_image" required>
-                            <p class="text-gray-500 text-xs mt-1">Maximum size is 2MB</p>
-                            @error('selfie_image')
+
+                        <div class="w-full mr-1">
+                            <label class="block text-sm font-medium text-gray-700"
+                                for="lrn">Learner's Reference Number</label>
+                            <input name="lrn"
+                                class="@error('lrn') is-invalid @enderror  border rounded w-full py-2 px-3 text-grey-darker"
+                                id="lrn" value="{{ old('lrn') }}" type="text" required
+                                autocomplete="lrn" autofocus>
+                            @error('lrn')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
-        
-                        <div class="flex mb-4">
-                            <div class="w-1/2 mr-1">
-                                <label class="block text-grey-darker text-sm font-bold mb-2"
-                                    for="contactperson2">Contact Person 2</label>
-                                <input name="contactperson2"
-                                    class="@error('contactperson2') is-invalid @enderror  border rounded w-full py-2 px-3 text-grey-darker"
-                                    id="contactperson2" value="{{ old('contactperson2') }}" type="text" required
-                                    autocomplete="contactperson2" autofocus>
-                                @error('contactperson2')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="w-1/2 ml-1">
-                                <label class="block text-grey-darker text-sm font-bold mb-2"
-                                    for="contactperson2number">Contact Person 2 Phone Number</label>
-                                <input name="contactperson2number"
-                                    class="@error('contactperson2number') is-invalid @enderror  border rounded w-full py-2 px-3 text-grey-darker"
-                                    value="{{ old('contactperson2number') }}" id="contacperson2number"
-                                    type="number" inputmode="numeric" pattern="[0-9]*" placeholder="639"
-                                    value="639" required autocomplete="contactperson2number" autofocus>
-                                @error('contactperson2number')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input @error('terms') is-invalid @enderror"
-                                id="terms" name="terms" required>
-                            <label class="form-check-label" for="terms">I agree to the <a
-                                    class="text-blue-700 hover:underline" data-modal-target="small-modal"
-                                    data-modal-toggle="small-modal" href="#">terms and conditions**</a></label>
-                            @error('terms')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <p>
-                            <a href="#"
-                                class="text-blue-700 ml-6 font-semibold text-md no-underline hover:underline">I already
-                                have an account</a>
-                        </p>
+                
+                    
                         <div class="mt-4 flex justify-between">
                             <button type="button" onclick="prevStep(3)"
                                 class="inline-flex items-center px-4 py-2 bg-gray-300 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-200 focus:outline-none focus:border-gray-300 focus:ring-gray-300 active:bg-gray-200 disabled:opacity-25 transition ease-in-out duration-150">
@@ -409,8 +327,9 @@
                             </button>
                             <button type="submit"
                                 class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:border-indigo-700 focus:ring-indigo-500 active:bg-indigo-700 disabled:opacity-25 transition ease-in-out duration-150">
-                                Submit
+                                Sign Up
                             </button>
+                        </form>
 
                         </div>
                 </div>
