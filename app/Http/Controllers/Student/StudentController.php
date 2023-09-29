@@ -13,7 +13,7 @@ class StudentController extends Controller
 {
     public function create()
     {
-        return view('auth.students.register');
+        return view('auth/studentRegister');
     }
 
     public function store(Request $request)
@@ -64,7 +64,7 @@ class StudentController extends Controller
         $user->student()->save($student);
 
         // Redirect to a success page or do any additional tasks
-        return redirect()->route('students.register')->with('success', 'Student registration successful!');
+        return redirect()->route('students.register.form')->with('success', 'Student registration successful!');
     }
 
 
@@ -72,7 +72,7 @@ class StudentController extends Controller
 
     public function showLoginForm()
     {
-        return view('auth.students.login');
+        return view('auth/studentLogin');
     }
 
     public function login(Request $request)
@@ -86,11 +86,15 @@ class StudentController extends Controller
         // Attempt to authenticate the student
         if (Auth::guard('student')->attempt(['email' => $request->email, 'password' => $request->password])) {
             // Authentication successful, redirect to the student's dashboard or another page
-            return redirect()->route('student.dashboard')->with('success', 'Login successful!');
+            return redirect()->view('student/studentDashboard')->with('success', 'Login successful!');
         }
 
         // Authentication failed, redirect back with errors
         return back()->withErrors(['email' => 'Invalid login credentials']);
+    }
+
+    public function dashboard(){
+        return view('student/studentDashboard');
     }
 
 

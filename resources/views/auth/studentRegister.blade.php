@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,411 +10,535 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
     <script src="https://kit.fontawesome.com/57a798c9bb.js" crossorigin="anonymous"></script>
+    @section('scripts')
+        <script src="{{ asset('js/wizardform.js') }}"></script>
+    @show
+
+    <style>
+        #scroll-to-next {
+            animation: fadeInDown 2s ease-in-out infinite;
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateY(10px);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+
+        /* Scale effect on hover */
+        .hover-scale:hover {
+            transform: scale(1.05);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .step-indicator-item {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: #CBD5E0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #4A5568;
+        }
+
+        .step-indicator-item.active {
+            background-color: rgb(28 100 242);
+            color: white;
+        }
+
+        .stepline-indicator-item {
+            height: 5px;
+            background-color: #2B6CB0;
+        }
+
+        .border-red-500 {
+            border-color: red !important;
+        }
+    </style>
 
 </head>
+
 <body class="bg-gray-100 font-family-karla h-screen">
     <x-navbar />
- <!--Container-->
- <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16">
-    <div class="w-full lg:w-1/5 px-6 text-xl text-gray-800 leading-normal">
-        {{-- <p class="text-base font-bold py-2 lg:pb-6 text-gray-700">Menu</p>
-        <div class="block lg:hidden ">
-            <button id="menu-toggle" class="flex w-full justify-end px-3 py-3 bg-white lg:bg-transparent border rounded border-gray-600 hover:border-yellow-600 appearance-none focus:outline-none">
-                <svg class="fill-current h-3 float-right" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-            </button>
-        </div> --}}
-        <div class="w-full sticky inset-0 hidden max-h-64 lg:h-auto overflow-x-hidden overflow-y-auto lg:overflow-y-hidden lg:block mt-0 my-2 lg:my-0 border border-gray-400 lg:border-transparent bg-white shadow lg:shadow-none lg:bg-transparent z-20" style="top:6em;" id="menu-content">
-            <ul class="list-reset py-2 md:py-0">
-                <li class="py-1 md:my-2 hover:bg-yellow-100 lg:hover:bg-transparent border-l-4 border-transparent font-bold border-yellow-600">
-                    <a href='#section1' class="block pl-4 align-middle text-gray-700 no-underline hover:text-yellow-600">
-                        <span class="pb-1 md:pb-0 text-sm">Personal Details</span>
-                    </a>
-                </li>
-                <li class="py-1 md:my-2 hover:bg-yellow-100 lg:hover:bg-transparent border-l-4 border-transparent">
-                    <a href='#section2' class="block pl-4 align-middle text-gray-700 no-underline hover:text-yellow-600">
-                        <span class="pb-1 md:pb-0 text-sm">Section 2</span>
-                    </a>
-                </li>
-                <li class="py-1 md:my-2 hover:bg-yellow-100 lg:hover:bg-transparent border-l-4 border-transparent">
-                    <a href='#section3' class="block pl-4 align-middle text-gray-700 no-underline hover:text-yellow-600">
-                        <span class="pb-1 md:pb-0 text-sm">Section 3</span>
-                    </a>
-                </li>
-                <li class="py-1 md:my-2 hover:bg-yellow-100 lg:hover:bg-transparent border-l-4 border-transparent">
-                    <a href='#section4' class="block pl-4 align-middle text-gray-700 no-underline hover:text-yellow-600">
-                        <span class="pb-1 md:pb-0 text-sm">Section 4</span>
-                    </a>
-                </li>
-
-                <li class="py-1 md:my-2 hover:bg-yellow-100 lg:hover:bg-transparent border-l-4 border-transparent">
-                    <a href='#section5' class="block pl-4 align-middle text-gray-700 no-underline hover:text-yellow-600">
-                        <span class="pb-1 md:pb-0 text-sm">Section 5</span>
-                    </a>
-                </li>
-            </ul>
+    <!--Container-->
+    <div class="flex flex-col mx-auto py-12 sm:px-6 lg:px-8" style="min-height: 100vh;">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
+            <h2 class="text-center text-3xl font-bold text-gray-900 mt-8 pt-8">Register your account</h2>
         </div>
-    </div>
-
-    <!--Section container-->
-    <section class="w-full lg:w-4/5">
-
-        <!--Title-->
-        <h1 class="flex items-center font-sans font-bold break-normal text-gray-700 px-2 text-xl mt-12 lg:mt-0 md:text-2xl">
-            Fill out the required fields
-        </h1>
-
-        <!--divider-->
-        <hr class="bg-gray-300 my-12">
-
-        <!--Title-->
-        <h2 id='section1' class="font-sans font-bold break-normal text-blue-700 px-2 pb-8 text-xl">Personal Details</h2>
-
-        <!--Card-->
-        <div class="p-8 mt-6 lg:mt-0 leading-normal rounded shadow bg-white">
-            <li>Using the CDN ve
-                
-                rsion of <a class="underline text-yellow-600" href="https://github.com/tailwindcss/custom-forms" target="_blank">Tailwind Custom Forms</a></li>
-            <li>This template uses jQuery for scrollspy</li>
-        </div>
-        <!--/Card-->
-
-        <!--divider-->
-        <hr class="bg-gray-300 my-12">
-
-        <!--Title-->
-        <h2 class="font-sans font-bold break-normal text-gray-700 px-2 pb-8 text-xl">Section 2</h2>
-
-        <!--Card-->
-        <div id='section2' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-
-            <form>
-
-                <div class="md:flex mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textfield">
-                            Text Field
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input class="form-input block w-full focus:bg-white" id="my-textfield" type="text" value="">
-                        <p class="py-2 text-sm text-gray-600">add notes about populating the field</p>
-                    </div>
+        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                <div class="step-indicator mb-4">
+                    <div class="step-indicator-item active">1</div>
+                    <hr class="font-bold stepline-indicator-item active" style="width: 50px;">
+                    <div class="step-indicator-item">2</div>
+                    <hr class="font-bold stepline-indicator-item active" style="width: 50px;">
+                    <div class="step-indicator-item">3</div>
                 </div>
 
-                <div class="md:flex mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-select">
-                            Drop down field
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <select name="" class="form-select block w-full focus:bg-white" id="my-select">
-                            <option value="Default">Default</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                        </select>
+                {{-- <form method="POST"  action="{{ route('auth.register') }}" id="wizard-form" enctype="multipart/form-data"> --}}
+                @csrf
+                <!-- Step 1: Personal Information -->
+                <div class="step" id="step-1">
+                    <h3 class="text-lg font-semibold mb-2 text-blue-600"> Personal Details </h1>
+                        <div class="flex mb-2">
+                            <div class="w-1/2 mr-1">
 
-                        <p class="py-2 text-sm text-gray-600">add notes about populating the field</p>
-                    </div>
-                </div>
+                                <label class="block text-sm font-medium text-gray-700" for="name">First
+                                    Name</label>
+                                <input name="name"
+                                    class="@error('name') is-invalid @enderror border rounded w-full py-2 px-3 text-grey-darker"
+                                    id="name" name="name" value="{{ old('name') }}" type="text" autofocus>
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
 
-                <div class="md:flex mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textarea">
-                            Text Area
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <textarea class="form-textarea block w-full focus:bg-white" id="my-textarea" value="" rows="8"></textarea>
-                        <p class="py-2 text-sm text-gray-600">add notes about populating the field</p>
-                    </div>
-                </div>
+                            <div class="w-1/2 mr-1">
 
-                <div class="md:flex md:items-center">
-                    <div class="md:w-1/3"></div>
-                    <div class="md:w-2/3">
-                        <button class="shadow bg-yellow-700 hover:bg-yellow-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-                            Save
-                        </button>
-                    </div>
-                </div>
-            </form>
+                                <label class="block text-sm font-medium text-gray-700" for="middleName">Middle
+                                    Name</label>
+                                <input name="middleName"
+                                    class="@error('middleName') is-invalid @enderror border rounded w-full py-2 px-3 text-grey-darker"
+                                    id="middleName" value="{{ old('middleName') }}" type="text" autofocus>
+                                @error('middleName')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
 
-        </div>
-        <!--/Card-->
-
-        <!--divider-->
-        <hr class="bg-gray-300 my-12">
-
-        <!--Title-->
-        <h2 class="font-sans font-bold break-normal text-gray-700 px-2 pb-8 text-xl">Section 3</h2>
-
-        <!--Card-->
-        <div id='section3' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-
-            <form>
-
-                <div class="md:flex mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-multiselect">
-                            Multi Select
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <select class="form-multiselect block w-full" multiple id="my-multiselect">
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
-                            <option>Option 4</option>
-                            <option>Option 5</option>
-                        </select>
-                        <p class="py-2 text-sm text-gray-600">add notes about populating the field</p>
-                    </div>
-                </div>
-
-                <div class="md:flex md:items-center">
-                    <div class="md:w-1/3"></div>
-                    <div class="md:w-2/3">
-                        <button class="shadow bg-yellow-700 hover:bg-yellow-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-                            Save
-                        </button>
-                    </div>
-                </div>
-            </form>
-
-        </div>
-        <!--/Card-->
-
-        <!--divider-->
-        <hr class="bg-gray-300 my-12">
-
-        <!--Title-->
-        <h2 class="font-sans font-bold break-normal text-gray-700 px-2 pb-8 text-xl">Section 4</h2>
-
-        <!--Card-->
-        <div id='section4' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-
-            <form>
-
-                <div class="md:flex mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-radio">
-                            Radio Buttons
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <div class="mt-2">
-                            <label class="inline-flex items-center">
-                                <input type="radio" class="form-radio text-indigo-600" name="radioOption" value="A">
-                                <span class="ml-2">Radio A</span>
-                            </label>
-                            <label class="inline-flex items-center ml-6">
-                                <input type="radio" class="form-radio" name="radioOption" value="B">
-                                <span class="ml-2">Radio B</span>
-                            </label>
+                            <div class="w-1/2 ml-1">
+                                <label class="block text-sm font-medium text-gray-700" for="last_name">Last Name</label>
+                                <input
+                                    name="lastName"class="@error('lastName') is-invalid @enderror border rounded w-full py-2 px-3 text-grey-darker"
+                                    id="lastName" name="lastName" value="{{ old('lastName') }}" type="text" autofocus>
+                                @error('lastName')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
-                        <p class="py-2 text-sm text-gray-600">add notes about populating the field</p>
-                    </div>
+                        <label class="block text-sm font-medium text-gray-700" for="address">Address</label>
+                        <input name="address"
+                            class="@error('address') is-invalid @enderror  border rounded w-full py-2 px-3 text-grey-darker"
+                            value="{{ old('address') }}" id="address" type="text">
+                        @error('address')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <div class="flex mb-2">
+                            <div class="w-1/2 mr-1">
+                                <label class="block text-sm font-medium text-gray-700" for="phone_number">Phone
+                                    Number</label>
+                                <input name="phone_number"
+                                    class="@error('phone_number') is-invalid @enderror  border rounded w-full py-2 px-3 text-grey-darker"
+                                    id="phone_number" type="number" inputmode="numeric" pattern="[0-9]*"
+                                    placeholder="639" required autocomplete="phone_number">
+                                @error('phone_number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="w-1/2 ml-1">
+                                <label class="block text-sm font-medium text-gray-700" for="birthday">Birthday</label>
+                                <input name="birthday" id="birthday" type="date"
+                                    class="border rounded w-full py-2 px-3 text-grey-darker @error('birthday') is-invalid @enderror"
+                                    name="birthday" value="{{ old('birthday') }}" required autocomplete="birthday">
+                                @error('birthday')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="flex mb-2">
+                            <div class="w-1/2 mr-1">
+                                <label class="block text-sm font-medium text-gray-700"
+                                    for="contactperson">Contact Person</label>
+                                <input name="contactperson"
+                                    class="@error('contactperson') is-invalid @enderror  border rounded w-full py-2 px-3 text-grey-darker"
+                                    id="contactperson" value="{{ old('contactperson') }}" type="text" required
+                                    autocomplete="contactperson" autofocus>
+                                @error('contactperson')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="w-1/2 ml-1">
+                                <label class="block text-sm font-medium text-gray-700"
+                                    for="contactperson_number">Contact Person's Number</label>
+                                <input
+                                    name="contactperson_number"class="@error('contactperson_number') is-invalid @enderror  border rounded w-full py-2 px-3 text-grey-darker"
+                                    value="{{ old('contactperson_number') }}" id="contacperson_number"
+                                    type="number" inputmode="numeric" pattern="[0-9]*" placeholder="639"
+                                    value="639" required autocomplete="contactperson_number" autofocus>
+                                @error('contactperson_number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-between">
+                            <button type="button" onclick="nextStep(1)"
+                                class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:border-indigo-700 focus:ring-indigo-500 active:bg-indigo-700 disabled:opacity-25 transition ease-in-out duration-150">
+                                Next
+                            </button>
+                        </div>
                 </div>
 
-                <div class="md:flex mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-checkbox">
-                            Checkboxes
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <div>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" class="form-checkbox text-indigo-600" checked>
-                                <span class="ml-2">Option 1</span>
-                            </label>
+                <!-- Step 2: Additional Information -->
+                <div class="step hidden" id="step-2">
+                    <h3 class="text-lg font-semibold mb-2 text-blue-600"> Account Details </h1>
+                        <div class="mb-2">
+                            <label class="block text-sm font-medium text-gray-700" for="email">Email
+                                Address</label>
+                            <input name="email"
+                                class="@error('email') is-invalid @enderror  border rounded w-full py-2 px-3 text-grey-darker"
+                                id="email" type="email" value="{{ old('email') }}"
+                                placeholder="Your email address" autofocus>
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-                        <div>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" class="form-checkbox text-green-500" checked>
-                                <span class="ml-2">Option 2</span>
-                            </label>
+                        <div class="flex mb-2">
+                            <div class="w-1/2 mr-1">
+                                <label class="block text-sm font-medium text-gray-700" for="password">Password</label>
+                                <input name="password"
+                                    class="@error('password') is-invalid @enderror  border rounded w-full py-2 px-3 text-grey-darker"
+                                    id="password" type="password" placeholder="At least 8 characters" required
+                                    autocomplete="new-password" autofocus>
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="w-1/2 ml-1">
+                                <label class="block text-sm font-medium text-gray-700" for="password-confirm">Confirm
+                                    Password</label>
+                                <input
+                                    name="password_confirmation"class=" border rounded w-full py-2 px-3 text-grey-darker"
+                                    id="password-confirm" type="password" placeholder="Your secure password" required
+                                    autocomplete="new-password">
+                            </div>
+
                         </div>
-                        <div>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" class="form-checkbox text-pink-600" checked>
-                                <span class="ml-2">Option 3</span>
-                            </label>
+
+                        <div class="mt-4 flex justify-between">
+                            <button type="button" onclick="prevStep(2)"
+                                class="inline-flex items-center px-4 py-2 bg-gray-300 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-200 focus:outline-none focus:border-gray-300 focus:ring-gray-300 active:bg-gray-200 disabled:opacity-25 transition ease-in-out duration-150">
+                                Previous
+                            </button>
+                            <button type="button" onclick="nextStep(2)"
+                                class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:border-indigo-700 focus:ring-indigo-500 active:bg-indigo-700 disabled:opacity-25 transition ease-in-out duration-150">
+                                Next
+                            </button>
                         </div>
-                        <p class="py-2 text-sm text-gray-600">add notes about populating the field</p>
-                    </div>
                 </div>
 
-                <div class="md:flex md:items-center">
-                    <div class="md:w-1/3"></div>
-                    <div class="md:w-2/3">
-                        <button class="shadow bg-yellow-700 hover:bg-yellow-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-                            Save
-                        </button>
-                    </div>
+                <!-- Step 3: Confirmation -->
+                <div class="step hidden" id="step-3">
+                    <h3 class="text-lg font-semibold mb-2 text-blue-600"> Student Information </h1>
+                        <div class="flex mb-2">
+                            <div class="row mb-3">
+                                <label for="user_type" class="block text-sm font-medium text-gray-700">Grade</label>
+                                <select id="user_type" name="user_type" class=" border rounded w-full py-2 px-3 text-grey-darker">
+                                    <option value=""></option>
+                                    <option value="Kinder">Kinder</option>
+                                    <option value="Grade 1">Grade 1</option>
+                                    <option value="Grade 2">Grade 2 </option>
+                                    <option value="Grade 3">Grade 3</option>
+                                    <option value="Grade 4">Grade 4</option>
+                                    <option value="Grade 5">Grade 5</option>
+                                    <option value="Grade 6">Grade 6</option>
+                                    <option value="Grade 7">Grade 7</option>
+                                    <option value="Grade 8">Grade 8</option>
+                                    <option value="Grade 9">Grade 9</option>
+                                    <option value="Grade 10">Grade 10</option>
+                                </select>
+                            </div>
+                            <div class="w-1/2 ml-1">
+                                <label class="block text-grey-darker text-sm font-bold mb-2" for="govtid_image">Upload
+                                    Government ID Image</label>
+                                <input name="govtid_image" id="govtid_image" type="file"
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 form-control-file @error('govtid_image') is-invalid @enderror"
+                                    name="govtid_image" required>
+                                <p class="text-gray-500 text-xs mt-1">Maximum size is 2MB</p>
+                                @error('govtid_image')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label class="block text-grey-darker text-sm font-bold mb-2" for="driverslicense">Drivers
+                                License</label>
+                            <input
+                                name="driverslicense"class="appearance-none border rounded w-full py-2 px-3 text-grey-darker @error('driverslicense') is-invalid @enderror"
+                                value="{{ old('driverslicense') }}" id="driverslicense" type="text" required>
+                            @error('driverslicense')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="flex mb-4">
+                            <div class="w-1/2 mr-1">
+                                <label class="block text-grey-darker text-sm font-bold mb-2"
+                                    for="driverslicense_image">Drivers License Front Photo</label>
+                                <input name="driverslicense_image" id="driverslicense_image" type="file"
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 form-control-file @error('driverslicense_image') is-invalid @enderror"
+                                    name="driverslicense_image" required>
+                                <p class="text-gray-500 text-xs mt-1">Maximum size is 2MB</p>
+                                @error('driverslicense_image')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="w-1/2 ml-1">
+                                <label class="block text-grey-darker text-sm font-bold mb-2"
+                                    for="driverslicense2_image">Drivers License Back Photo</label>
+                                <input name="driverslicense2_image" id="driverslicense2_image" type="file"
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 form-control-file @error('driverslicense2_image') is-invalid @enderror"
+                                    name="driverslicense2_image" required>
+                                <p class="text-gray-500 text-xs mt-1">Maximum size is 2MB</p>
+                                @error('driverslicense2_image')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label class="block text-grey-darker text-sm font-bold mb-2" for="selfie_image">Upload a
+                                clear selfie photo</label>
+                            <input name="selfie_image" id="selfie_image" type="file"
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 form-control-file @error('selfie_image') is-invalid @enderror"
+                                name="selfie_image" required>
+                            <p class="text-gray-500 text-xs mt-1">Maximum size is 2MB</p>
+                            @error('selfie_image')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+        
+                        <div class="flex mb-4">
+                            <div class="w-1/2 mr-1">
+                                <label class="block text-grey-darker text-sm font-bold mb-2"
+                                    for="contactperson2">Contact Person 2</label>
+                                <input name="contactperson2"
+                                    class="@error('contactperson2') is-invalid @enderror  border rounded w-full py-2 px-3 text-grey-darker"
+                                    id="contactperson2" value="{{ old('contactperson2') }}" type="text" required
+                                    autocomplete="contactperson2" autofocus>
+                                @error('contactperson2')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="w-1/2 ml-1">
+                                <label class="block text-grey-darker text-sm font-bold mb-2"
+                                    for="contactperson2number">Contact Person 2 Phone Number</label>
+                                <input name="contactperson2number"
+                                    class="@error('contactperson2number') is-invalid @enderror  border rounded w-full py-2 px-3 text-grey-darker"
+                                    value="{{ old('contactperson2number') }}" id="contacperson2number"
+                                    type="number" inputmode="numeric" pattern="[0-9]*" placeholder="639"
+                                    value="639" required autocomplete="contactperson2number" autofocus>
+                                @error('contactperson2number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input @error('terms') is-invalid @enderror"
+                                id="terms" name="terms" required>
+                            <label class="form-check-label" for="terms">I agree to the <a
+                                    class="text-blue-700 hover:underline" data-modal-target="small-modal"
+                                    data-modal-toggle="small-modal" href="#">terms and conditions**</a></label>
+                            @error('terms')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <p>
+                            <a href="#"
+                                class="text-blue-700 ml-6 font-semibold text-md no-underline hover:underline">I already
+                                have an account</a>
+                        </p>
+                        <div class="mt-4 flex justify-between">
+                            <button type="button" onclick="prevStep(3)"
+                                class="inline-flex items-center px-4 py-2 bg-gray-300 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-200 focus:outline-none focus:border-gray-300 focus:ring-gray-300 active:bg-gray-200 disabled:opacity-25 transition ease-in-out duration-150">
+                                Previous
+                            </button>
+                            <button type="submit"
+                                class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:border-indigo-700 focus:ring-indigo-500 active:bg-indigo-700 disabled:opacity-25 transition ease-in-out duration-150">
+                                Submit
+                            </button>
+
+                        </div>
                 </div>
-            </form>
-
-        </div>
-        <!--/Card-->
-
-        <!--divider-->
-        <hr class="bg-gray-300 my-12">
-
-        <!--Title-->
-        <h2 class="font-sans font-bold break-normal text-gray-700 px-2 pb-8 text-xl">Section 5</h2>
-
-        <!--Card-->
-        <div id='section5' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-
-            <blockquote class="border-l-4 border-yellow-600 italic my-4 pl-8 md:pl-12">Final confirmation disclaimer message etc</blockquote>
-
-            <div class="pt-8">
-
-                <button class="shadow bg-yellow-700 hover:bg-yellow-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mr-4" type="button">
-                    Save
-                </button>
-
-                <button class="shadow bg-yellow-100 hover:bg-yellow-200 focus:shadow-outline focus:outline-none text-gray-700 font-bold py-2 px-4 rounded mr-4" type="button">
-                    Additional Action
-                </button>
-
-                <button class="shadow bg-yellow-100 hover:bg-yellow-200 focus:shadow-outline focus:outline-none text-gray-700 font-bold py-2 px-4 rounded" type="button">
-                    Additional Action
-                </button>
 
             </div>
-
         </div>
-        <!--/Card-->
+    </div>
+    <!--/container-->
 
-    </section>
-    <!--/Section container-->
+    <!-- Toggle dropdown list -->
+    {{-- <script>
+        /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
 
-    <!--Back link -->
-    <div class="w-full lg:w-4/5 lg:ml-auto text-base md:text-sm text-gray-600 px-4 py-24 mb-12">
-      <span class="text-base text-yellow-600 font-bold">&lt;</span> <a href="#" class="text-base md:text-sm text-yellow-600 font-bold no-underline hover:underline">Back link</a>
-     </div>
+        var userMenuDiv = document.getElementById("userMenu");
+        var userMenu = document.getElementById("userButton");
 
-  </div>
-  <!--/container-->
+        var helpMenuDiv = document.getElementById("menu-content");
+        var helpMenu = document.getElementById("menu-toggle");
 
-<!-- Toggle dropdown list -->
-<script>
-/*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
+        document.onclick = check;
 
-var userMenuDiv = document.getElementById("userMenu");
-var userMenu = document.getElementById("userButton");
+        function check(e) {
+            var target = (e && e.target) || (event && event.srcElement);
 
-var helpMenuDiv = document.getElementById("menu-content");
-var helpMenu = document.getElementById("menu-toggle");
+            //User Menu
+            if (!checkParent(target, userMenuDiv)) {
+                // click NOT on the menu
+                if (checkParent(target, userMenu)) {
+                    // click on the link
+                    if (userMenuDiv.classList.contains("invisible")) {
+                        userMenuDiv.classList.remove("invisible");
+                    } else {
+                        userMenuDiv.classList.add("invisible");
+                    }
+                } else {
+                    // click both outside link and outside menu, hide menu
+                    userMenuDiv.classList.add("invisible");
+                }
+            }
 
-document.onclick = check;
+            //Help Menu
+            if (!checkParent(target, helpMenuDiv)) {
+                // click NOT on the menu
+                if (checkParent(target, helpMenu)) {
+                    // click on the link
+                    if (helpMenuDiv.classList.contains("hidden")) {
+                        helpMenuDiv.classList.remove("hidden");
+                    } else {
+                        helpMenuDiv.classList.add("hidden");
+                    }
+                } else {
+                    // click both outside link and outside menu, hide menu
+                    helpMenuDiv.classList.add("hidden");
+                }
+            }
 
-function check(e){
-var target = (e && e.target) || (event && event.srcElement);
+        }
 
-//User Menu
-if (!checkParent(target, userMenuDiv)) {
-// click NOT on the menu
-if (checkParent(target, userMenu)) {
-  // click on the link
-  if (userMenuDiv.classList.contains("invisible")) {
-    userMenuDiv.classList.remove("invisible");
-  } else {userMenuDiv.classList.add("invisible");}
-} else {
-  // click both outside link and outside menu, hide menu
-  userMenuDiv.classList.add("invisible");
-}
-}
+        function checkParent(t, elm) {
+            while (t.parentNode) {
+                if (t == elm) {
+                    return true;
+                }
+                t = t.parentNode;
+            }
+            return false;
+        }
+    </script>
 
-//Help Menu
-if (!checkParent(target, helpMenuDiv)) {
-// click NOT on the menu
-if (checkParent(target, helpMenu)) {
-  // click on the link
-  if (helpMenuDiv.classList.contains("hidden")) {
-    helpMenuDiv.classList.remove("hidden");
-  } else {helpMenuDiv.classList.add("hidden");}
-} else {
-  // click both outside link and outside menu, hide menu
-  helpMenuDiv.classList.add("hidden");
-}
-}
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-}
+    <!-- Scroll Spy -->
+    <script>
+        /* http://jsfiddle.net/LwLBx/ */
 
-function checkParent(t, elm) {
-while(t.parentNode) {
-if( t == elm ) {return true;}
-t = t.parentNode;
-}
-return false;
-}
+        // Cache selectors
+        var lastId,
+            topMenu = $("#menu-content"),
+            topMenuHeight = topMenu.outerHeight() + 175,
+            // All list items
+            menuItems = topMenu.find("a"),
+            // Anchors corresponding to menu items
+            scrollItems = menuItems.map(function() {
+                var item = $($(this).attr("href"));
+                if (item.length) {
+                    return item;
+                }
+            });
 
-</script>
+        // Bind click handler to menu items
+        // so we can get a fancy scroll animation
+        menuItems.click(function(e) {
+            var href = $(this).attr("href"),
+                offsetTop = href === "#" ? 0 : $(href).offset().top - topMenuHeight + 1;
+            $('html, body').stop().animate({
+                scrollTop: offsetTop
+            }, 300);
+            if (!helpMenuDiv.classList.contains("hidden")) {
+                helpMenuDiv.classList.add("hidden");
+            }
+            e.preventDefault();
+        });
 
-<!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        // Bind to scroll
+        $(window).scroll(function() {
+            // Get container scroll position
+            var fromTop = $(this).scrollTop() + topMenuHeight;
 
-<!-- Scroll Spy -->
-<script>
-/* http://jsfiddle.net/LwLBx/ */
+            // Get id of current scroll item
+            var cur = scrollItems.map(function() {
+                if ($(this).offset().top < fromTop)
+                    return this;
+            });
+            // Get the id of the current element
+            cur = cur[cur.length - 1];
+            var id = cur && cur.length ? cur[0].id : "";
 
-// Cache selectors
-var lastId,
-topMenu = $("#menu-content"),
-topMenuHeight = topMenu.outerHeight()+175,
-// All list items
-menuItems = topMenu.find("a"),
-// Anchors corresponding to menu items
-scrollItems = menuItems.map(function(){
-  var item = $($(this).attr("href"));
-  if (item.length) { return item; }
-});
-
-// Bind click handler to menu items
-// so we can get a fancy scroll animation
-menuItems.click(function(e){
-var href = $(this).attr("href"),
-  offsetTop = href === "#" ? 0 : $(href).offset().top-topMenuHeight+1;
-$('html, body').stop().animate({ 
-  scrollTop: offsetTop
-}, 300);
-if (!helpMenuDiv.classList.contains("hidden")) {
-    helpMenuDiv.classList.add("hidden");
-  }
-e.preventDefault();
-});
-
-// Bind to scroll
-$(window).scroll(function(){
-// Get container scroll position
-var fromTop = $(this).scrollTop()+topMenuHeight;
-
-// Get id of current scroll item
-var cur = scrollItems.map(function(){
- if ($(this).offset().top < fromTop)
-   return this;
-});
-// Get the id of the current element
-cur = cur[cur.length-1];
-var id = cur && cur.length ? cur[0].id : "";
-
-if (lastId !== id) {
-   lastId = id;
-   // Set/remove active class
-   menuItems
-     .parent().removeClass("font-bold border-yellow-600")
-     .end().filter("[href='#"+id+"']").parent().addClass("font-bold border-yellow-600");
-}                   
-});
-
-</script>
+            if (lastId !== id) {
+                lastId = id;
+                // Set/remove active class
+                menuItems
+                    .parent().removeClass("font-bold border-yellow-600")
+                    .end().filter("[href='#" + id + "']").parent().addClass("font-bold border-yellow-600");
+            }
+        });
+    </script> --}}
     <x-footer />
 </body>
+
 </html>

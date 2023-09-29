@@ -13,7 +13,7 @@ class TeacherController extends Controller
 {
     public function create()
     {
-        return view('auth.teachers.register');
+        return view('auth/teacherRegister');
     }
 
     public function store(Request $request)
@@ -74,7 +74,7 @@ class TeacherController extends Controller
     //LOGIN
     public function showLoginForm()
     {
-        return view('auth.teachers.login');
+        return view('auth/teacherLogin');
     }
 
     public function login(Request $request)
