@@ -22,7 +22,7 @@
 
             <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
                 <p class="text-center text-3xl">Welcome, Teacher!</p>
-                <form class="flex flex-col pt-3 md:pt-8" type="POST" action="{{ route('teacher.login.submit') }}">
+                <form class="flex flex-col pt-3 md:pt-8" type="POST" action="/teacher/signin">
                     @csrf
                     <div class="flex flex-col pt-4">
                         <label for="email" class="text-lg">Email</label>
@@ -53,9 +53,9 @@
 
                 </form>
                 <div class="text-center pt-12 pb-12">
-                    <p>Are you a student? <a href="{{ route('student.login.view') }}"
+                    <p>Are you a student? <a href="/student/login"
                             class="underline font-semibold">Login here</a></p>
-                    <p>Don't have an account? <a href="{{ route('teacher.register.form') }}"
+                    <p>Don't have an account? <a href="/teacher/registration"
                             class="underline font-semibold">Register here.</a></p>
                 </div>
             </div>

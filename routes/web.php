@@ -41,16 +41,16 @@ Route::post('/learners/signin', [StudentController::class, 'login']);
 // Apply 'auth' middleware to protect the following routes
 Route::middleware(['auth:teacher'])->group(function () {
     // Teacher Dashboard Route
-    Route::get('/teacher/dashboard', [TeacherController::class, 'dashboard'])->name('teacher.dashboard');
+    Route::get('/teacher/dashboard', [TeacherController::class, 'dashboard']);
     
     // Add other routes here that require teacher authentication
     // For example, routes for managing classes, updating profile, etc.
 });
 
 // Teacher Registration Routes
-Route::get('/teacher/register', [TeacherController::class, 'create'])->name('teacher.register.form');
-Route::post('/teacher/register', [TeacherController::class, 'store'])->name('teacher.register.submit');
+Route::get('/teacher/registration', [TeacherController::class, 'create']);
+Route::post('/teacher/registered', [TeacherController::class, 'store']);
 
 // Teacher Login Routes
-Route::get('/teacher/login', [TeacherController::class, 'showLoginForm'])->name('teacher.login.view');
-Route::post('/teacher/login', [TeacherController::class, 'login'])->name('teacher.login.submit');
+Route::get('/teacher/login', [TeacherController::class, 'showLoginForm']);
+Route::post('/teacher/signin', [TeacherController::class, 'login']);
