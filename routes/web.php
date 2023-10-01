@@ -22,7 +22,8 @@ Route::get('/', function () {
 // Apply 'auth' middleware to protect the following routes
 Route::middleware(['auth'])->group(function () {
     // Student Dashboard Route
-    Route::get('/student/studentDashboard', [StudentController::class, 'dashboard'])->name('student.dashboard');
+    Route::get('/student/studentDashboard', [StudentController::class, 'dashboard']);
+
 });
 
 // Student Registration Routes
@@ -31,7 +32,7 @@ Route::post('/student/registered', [StudentController::class, 'store']);
 
 // Student Login Routes
 Route::get('/student/login', [StudentController::class, 'showLoginForm']);
-Route::post('/student/login', [StudentController::class, 'login']);
+Route::post('/learners/signin', [StudentController::class, 'login']);
 
 
 

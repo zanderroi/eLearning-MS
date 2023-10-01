@@ -50,12 +50,12 @@ return [
 
         'student' => [
             'driver' => 'session',
-            'provider' => 'students',
+            'provider' => 'users',
         ],
 
         'teacher' => [
             'driver' => 'session',
-            'provider' => 'teachers',
+            'provider' => 'users',
         ],
     ],
 
@@ -85,7 +85,6 @@ return [
         'students' => [
             'driver' => 'eloquent',
             'model' => App\Models\Student::class,
-            'table' => 'students',
         ],
 
         'teachers' => [
