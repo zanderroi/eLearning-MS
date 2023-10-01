@@ -139,13 +139,17 @@ class TeacherController extends Controller
         ]);
 
         // Attempt to authenticate the teacher
-        if (Auth::guard('teacher')->attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password])) {
             // Authentication successful, redirect to the teacher's dashboard or another page
-            return redirect()->route('teacher.dashboard')->with('success', 'Login successful!');
+            return view('teacher.teacherDashboard')->with('success', 'Login successful!');
         }
 
         // Authentication failed, redirect back with errors
         return back()->withErrors(['email' => 'Invalid login credentials']);
+    }
+
+    public function dashboard(){
+        return view('teacher/teacherDashboard');
     }
 
 }

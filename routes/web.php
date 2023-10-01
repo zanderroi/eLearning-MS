@@ -39,7 +39,7 @@ Route::post('/learners/signin', [StudentController::class, 'login']);
 
 
 // Apply 'auth' middleware to protect the following routes
-Route::middleware(['auth:teacher'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     // Teacher Dashboard Route
     Route::get('/teacher/dashboard', [TeacherController::class, 'dashboard']);
     
@@ -53,4 +53,4 @@ Route::post('/teacher/registered', [TeacherController::class, 'store']);
 
 // Teacher Login Routes
 Route::get('/teacher/login', [TeacherController::class, 'showLoginForm']);
-Route::post('/teacher/signin', [TeacherController::class, 'login']);
+Route::post('/teachers/signin', [TeacherController::class, 'login']);
