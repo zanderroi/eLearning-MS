@@ -53,7 +53,7 @@
                     <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 ">
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                           <li>
-                            <a href="{{ route('teacher.login.view') }}" class="block px-4 py-2 hover:bg-gray-100 "> <i class="fa-solid fa-chalkboard-user px-2 "></i> Teacher</a>
+                            <a href="/teacher/login" class="block px-4 py-2 hover:bg-gray-100 "> <i class="fa-solid fa-chalkboard-user px-2 "></i> Teacher</a>
                           </li>
                           <li class="flex hover:bg-gray-100 ">
                             <img src="{{ asset('images/student.png')}}" class="ml-6 mt-2 w-5 h-5">

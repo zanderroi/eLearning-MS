@@ -46,7 +46,7 @@
                 
                 </form>
                 <div class="text-center pt-12 pb-12">
-                    <p>Are you a teacher? <a href="{{route('teacher.login.view')}}" class="underline font-semibold">Login here</a></p>
+                    <p>Are you a teacher? <a href="/teacher/login" class="underline font-semibold">Login here</a></p>
                     <p>Don't have an account? <a href="/student/registration" class="underline font-semibold">Register here.</a></p>
                 </div>
             </div>

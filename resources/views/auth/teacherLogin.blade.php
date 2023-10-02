@@ -22,41 +22,23 @@
 
             <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
                 <p class="text-center text-3xl">Welcome, Teacher!</p>
-                <form class="flex flex-col pt-3 md:pt-8" type="POST" action="{{ route('teacher.login.submit') }}">
+                <form class="flex flex-col pt-3 md:pt-8" method="POST" action="/teachers/signin">
                     @csrf
                     <div class="flex flex-col pt-4">
                         <label for="email" class="text-lg">Email</label>
-                        <input type="email" id="email" placeholder="your@email.com"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                        <input type="email" id="email" name="email" placeholder="your@email.com" class="@error('email') is-invalid @enderror shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                     </div>
-
+    
                     <div class="flex flex-col pt-4">
                         <label for="password" class="text-lg">Password</label>
-                        <input type="password" id="password" placeholder="Password"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                        <input type="password" id="password" name="password" placeholder="Password" class="@error('password') is-invalid @enderror shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                     </div>
-
-
-                    <button type="submit"
-                        class="bg-yellow-500 text-white font-bold text-lg hover:bg-yellow-600 p-2 mt-8"> Log in</button>
-
-
+                    <button type="submit" class="bg-blue-500 text-white font-bold text-lg hover:bg-blue-600 p-2 mt-8"> Log in</button>
+                
                 </form>
                 <div class="text-center pt-12 pb-12">
-                    <p>Are you a student? <a href="{{ route('student.login.view') }}"
-                            class="underline font-semibold">Login here</a></p>
-                    <p>Don't have an account? <a href="{{ route('teacher.register.form') }}"
-                            class="underline font-semibold">Register here.</a></p>
+                    <p>Are you a student? <a href="/student/login" class="underline font-semibold">Login here</a></p>
+                    <p>Don't have an account? <a href="/teacher/registration" class="underline font-semibold">Register here.</a></p>
                 </div>
             </div>
 
