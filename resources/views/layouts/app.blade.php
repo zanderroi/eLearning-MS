@@ -15,6 +15,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
     <script src="https://kit.fontawesome.com/57a798c9bb.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/57a798c9bb.js" crossorigin="anonymous"></script>
 
 
     <!-- Add your CSS and JavaScript links here -->
@@ -22,11 +23,14 @@
 
 <body>
 
-    <div class="container">
+    <div>
         @yield('content')
     </div>
+
+
+      
+
     
-    <x-footer />
 
 </body>
 
