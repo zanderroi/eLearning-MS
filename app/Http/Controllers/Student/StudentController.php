@@ -86,7 +86,12 @@ class StudentController extends Controller
         // Attempt to authenticate the student
         if (Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password])) {
             // Authentication successful, redirect to the student's dashboard or another page
-            return view('student.studentDashboard')->with('success', 'Login successful!');
+
+            $user = Auth::guard('web')->user();
+            return view('student.studentDashboard')->with('success', 'Login successful!' , [
+                'success' => 'Login successful!',
+                'user' => $user
+            ]);
         }
 
         // Authentication failed, redirect back with errors
@@ -94,7 +99,8 @@ class StudentController extends Controller
     }
 
     public function dashboard(){
-        return view('student/studentDashboard');
+        $user = Auth::guard('web')->user();
+        return view('student/studentDashboard', ['user' => $user]);
     }
 
 

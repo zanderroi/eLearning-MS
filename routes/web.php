@@ -19,6 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::get('/admindashboard', function () {
+    return view('admin/adminDashboard');
+});
+
 // Apply 'auth' middleware to protect the following routes
 Route::middleware(['auth'])->group(function () {
     // Student Dashboard Route
